@@ -152,7 +152,7 @@ $moo->legend='cows|dogs|carrots|rubber';
 
 CHART WITH OTHER FUNCTIONS
 
-To convert data to simple mode (for smaller data sets I guess. I don't see a purpose)
+To convert data to simple mode (for smaller urls I guess)
 {{{
 	$moo->simpleDataMode();
 }}}
