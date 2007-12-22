@@ -1,0 +1,170 @@
+#summary One-sentence summary of this page.
+#labels Featured
+
+= My google charts php class =
+
+== Here are the excerpts from inside the class file ==
+  @author Jeck Lamnent
+
+  @version 1.0
+
+  @GNU public dec 2007
+
+  modify it and change it as much as you'd like
+I made it quickly for what I needed so its not optimized for a 15,000 charts per second server
+
+
+
+Examples after these quick field/function descriptions
+
+The chart is displayed as an image. The style sheet class is class="googleChart"
+
+If your new to using classes then look at the examples section.
+For the below "var something;" entries, instance is a references to 
+the $blah variable in $blah=new googleChart();
+
+Google charts require supplied data to be separated using commas and | pipes so I
+keep the commas and pipes in check inside the functions. If things don't work 
+right then look at the examples so see what to do.
+
+
+data/labels can be arrays or strings.
+{{{
+var $dimensions;						//dimensions are width x height
+	instance->dimensions='300x100';
+var $colors; 							//colors are separated by commas
+	instance->colors='8888ff,4444ff'; 	//used to colour charts, can be 1 or many colour sets separated by commas
+var $legend; 							//legend items are separated by pipes
+	instance->legend='Cows|Dogs|Buffalo';
+var $title;								//title is plane text
+	instance->title='My chart';
+var $fillColor;							//colors don't have # preceeding them
+	instance->fillcolor='76A4FB';
+var $showGrid;							//it tries to auto calc it
+	instance->showGrid=1;
+}}}
+f googleChart($data=null,$type=null,$title=null,$dimensions=null);
+	-data is an array or a comma separated string. 
+	
+f setLabels(string or array,string); default 'left'
+	-sets labels on the chart, 2nd param is 'top' 'left' 'bottom' or 'right'
+	
+f draw(boolean); default (true)
+	-prints an img tag with the chart, if set to false, returns the chart url.
+	
+f smartDataLabel($data);
+	-Adds a legend and data based on array keys
+{{{
+	$data=array(
+		'cows'=>array(4,5,6,7,9),
+		'dogs'=>array(6,1,4,2,6),
+		'peas'=>array(5.4,9,1,6,2)
+	);
+}}}	
+f simpleDataMode()
+	-for 0..61 different plottable values. Default options can plot 1000 values
+f setLabelsMinMax(integer=3,string='left'); default (3,'left')
+	-auto creates labels for you on the left side of chart, goes from 0 to max value
+	use setLabels('0|100|200|300|400'); if you want your own number sequences
+
+f setType(string) default ('line')
+	-sets the type of chart (pie,pie3d,barx,bary,line)
+	
+******EXAMPLES******
+
+BASIC CHART:
+{{{
+	$data=array('4,6,21,7,1,6,17,5,2,1,7,9'); //note arrays don't have | pipes in them
+	$moo=new googleChart($data);
+	$moo->draw();
+}}}
+
+
+CHART WITH LABEL:
+{{{
+	$moo= new googleChart('4,6,21,7,1,6,17,5,2,1,7,9');
+	$moo->setLabels('june|july|aug','bottom');
+	$moo->draw();
+}}}
+
+CHART BASIC WITH LABELS
+{{{
+	$chart1= new googleChart('4,1,6,8,1','pie','foods','300x200');
+	$chart1->setLabels('cake|pie|muffins|cookies|icecream');
+	$chart1->draw();
+}}}
+	
+	
+CHART WITH LABEL AND MIN/MAX VALUES ON RIGHT
+{{{
+	$moo= new googleChart('4,6,21,7,1,6,17,5,2,1,7,9');
+	$moo->setLabelsMinMax(5,'right'); //call before other funcs that make labels
+	$moo->setLabels('june|july|aug','bottom');
+	$moo->draw();
+}}}
+
+PIE CHART WITH LABELS
+{{{
+	$data='4,23,65';
+	$moo= new googleChart($data,'pie');
+	$moo->setLabels('cows|dogs|peas');
+	$moo->draw(true);
+}}}
+	
+	//or an alternative to above 'pie' you can use $moo->setType('pie');
+
+CHART WITH 3 DIFFERENT DATA SETS using smartDataLabel(), A LEGEND AND MINMAX LABELS
+{{{
+	$data=array(
+		'cows'=>array(4,5,6,7,9),
+		'dogs'=>array(6,1,4,2,6),
+		'peas'=>array(5.4,9,1,6,2)
+	);
+	$moo= new googleChart();
+	$moo->smartDataLabel($data);
+	$moo->setLabelsMinMax(5,'left'); 
+	$moo->draw(true);
+}}}
+
+CHART WITH LOTS OF OPTIONS, data sets are supplied in a string 
+{{{
+	$data='1,4,6,8,2|3,7,8,3,2';
+	$chart1=new googleChart($data);
+	$chart1->dimensions='400x125';
+	$chart1->fillColor='76A4FB';
+	$chart1->setLabelsMinMax();
+	$chart1->legend='Ammount of cookies|Raisens';
+	$chart1->setLabels('jan|feb|march|apr|may','bottom');
+	$chart1->setLabels('+low|mid|top','left');
+	$chart1->showGrid=1;
+	$chart1->draw();
+}}}
+
+	
+TO ADD A LEGEND MANUALLY:
+{{{
+$moo->legend='cows|dogs|carrots|rubber';
+}}}
+
+CHART WITH OTHER FUNCTIONS
+
+To convert data to simple mode (for smaller data sets I guess. I don't see a purpose)
+{{{
+	$moo->simpleDataMode();
+}}}
+	
+To changes some colors (you can supply more than needed)
+{{{
+	$moo->colors='8888ff,4444ff,670032';
+}}}
+
+
+
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
