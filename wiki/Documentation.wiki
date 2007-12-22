@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
 #labels Featured
-
 = My google charts php class =
 
 == Here are the excerpts from inside the class file ==
@@ -12,7 +10,6 @@
 
   modify it and change it as much as you'd like
 I made it quickly for what I needed so its not optimized for a 15,000 charts per second server
-
 
 
 Examples after these quick field/function descriptions
@@ -71,7 +68,10 @@ f setType(string) default ('line')
 	-sets the type of chart (pie,pie3d,barx,bary,line)
 	
 ******EXAMPLES******
+The charts you see are the live results of the below examples. Their sizes are 
+scaled down though
 
+http://chart.apis.google.com/chart?chs=150x67&cht=lc&chco=0088ff,8800ff,4444ff&chd=t:19,28.6,100,33.3,4.8,28.6,81,23.8,9.5,4.8,33.3,42.9&chxr.jpg
 BASIC CHART:
 {{{
 	$data=array('4,6,21,7,1,6,17,5,2,1,7,9'); //note arrays don't have | pipes in them
@@ -79,7 +79,7 @@ BASIC CHART:
 	$moo->draw();
 }}}
 
-
+http://chart.apis.google.com/chart?chs=150x67&cht=lc&chxt=x&chxl=0:|june|july|aug&chco=0088ff,8800ff,4444ff&chd=t:19,28.6,100,33.3,4.8,28.6,81,23.8,9.5,4.8,33.3,42.9&chxr.jpg
 CHART WITH LABEL:
 {{{
 	$moo= new googleChart('4,6,21,7,1,6,17,5,2,1,7,9');
@@ -87,6 +87,7 @@ CHART WITH LABEL:
 	$moo->draw();
 }}}
 
+http://chart.apis.google.com/chart?chs=100x67&cht=p&chtt=foods&chl=cake|pie|muffins|cookies|icecream&chco=0088ff,8800ff,4444ff&chd=t:50,12.5,75,100,12.5&chxr.jpg
 CHART BASIC WITH LABELS
 {{{
 	$chart1= new googleChart('4,1,6,8,1','pie','foods','300x200');
@@ -94,7 +95,7 @@ CHART BASIC WITH LABELS
 	$chart1->draw();
 }}}
 	
-	
+http://chart.apis.google.com/chart?chs=150x67&cht=lc&chxt=r,x&chxl=0:|0|5|10|15|20|1:|june|july|aug&chco=0088ff,8800ff,4444ff&chd=t:19,28.6,100,33.3,4.8,28.6,81,23.8,9.5,4.8,33.3,42.9&chxr.jpg	
 CHART WITH LABEL AND MIN/MAX VALUES ON RIGHT
 {{{
 	$moo= new googleChart('4,6,21,7,1,6,17,5,2,1,7,9');
@@ -103,6 +104,7 @@ CHART WITH LABEL AND MIN/MAX VALUES ON RIGHT
 	$moo->draw();
 }}}
 
+http://chart.apis.google.com/chart?chs=150x67&cht=p&chl=cows|dogs|peas&chco=0088ff,8800ff,4444ff&chd=t:6.2,35.4,100&chxr.jpg
 PIE CHART WITH LABELS
 {{{
 	$data='4,23,65';
@@ -113,6 +115,7 @@ PIE CHART WITH LABELS
 	
 	//or an alternative to above 'pie' you can use $moo->setType('pie');
 
+http://chart.apis.google.com/chart?chs=150x67&cht=lc&chdl=cows|dogs|peas&chxt=y&chxl=0:|0|2|4|6|8&chco=0088ff,8800ff,4444ff&chd=t:44.4,55.6,66.7,77.8,100|66.7,11.1,44.4,22.2,66.7|60,100,11.1,66.7,22.2|44.4,55.6,66.7,77.8,100|66.7,11.1,44.4,22.2,66.7|60,100,11.1,66.7,22.2&chxr.jpg
 CHART WITH 3 DIFFERENT DATA SETS using smartDataLabel(), A LEGEND AND MINMAX LABELS
 {{{
 	$data=array(
@@ -126,6 +129,7 @@ CHART WITH 3 DIFFERENT DATA SETS using smartDataLabel(), A LEGEND AND MINMAX LAB
 	$moo->draw(true);
 }}}
 
+http://chart.apis.google.com/chart?chs=300x100&cht=lc&chdl=Ammount%20of%20cookies|Raisens&chxt=y,x,y&chxl=0:|0|4|8|1:|jan|feb|march|apr|may|2:|+low|mid|top&chm=B,76A4FB,0,0,0&chg=20,50,1&chco=0088ff,8800ff,4444ff&chd=t:12.5,50,75,100,25|37.5,87.5,100,37.5,25&chxr.jpg
 CHART WITH LOTS OF OPTIONS, data sets are supplied in a string 
 {{{
 	$data='1,4,6,8,2|3,7,8,3,2';
