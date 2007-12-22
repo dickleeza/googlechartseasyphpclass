@@ -11,7 +11,7 @@
   modify it and change it as much as you'd like
 I made it quickly for what I needed so its not optimized for a 15,000 charts per second server
 
-
+===You can skip all the explanations and go to the examples section below===
 Examples after these quick field/function descriptions
 
 The chart is displayed as an image. The style sheet class is class="googleChart"
@@ -67,7 +67,7 @@ f setLabelsMinMax(integer=3,string='left'); default (3,'left')
 f setType(string) default ('line')
 	-sets the type of chart (pie,pie3d,barx,bary,line)
 	
-******EXAMPLES******
+==******EXAMPLES******==
 The charts you see are the live results of the below examples. Their sizes are 
 scaled down though
 
@@ -161,14 +161,3 @@ To changes some colors (you can supply more than needed)
 {{{
 	$moo->colors='8888ff,4444ff,670032';
 }}}
-
-
-
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
