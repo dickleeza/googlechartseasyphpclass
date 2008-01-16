@@ -4,7 +4,7 @@
 == Here are the excerpts from inside the class file ==
   @author Jeck Lamnent
 
-  @version 1.0
+  @version 1.02
 
   @GNU public dec 2007
 
@@ -24,9 +24,14 @@ Google charts require supplied data to be separated using commas and | pipes so 
 keep the commas and pipes in check inside the functions. If things don't work 
 right then look at the examples so see what to do.
 
+If the supplied data is negative numbers then set negativeMode=true and load the data using ->loadData();.
 
 data/labels can be arrays or strings.
 {{{
+var $barWidth=null; 					//sets the width of the bars for vert/horiz bar charts.
+	instance->barWidth=10;
+var $negativeMode;						//Set to true if data is negative data
+	instance->negativeMode=true;
 var $dimensions;						//dimensions are width x height
 	instance->dimensions='300x100';
 var $colors; 							//colors are separated by commas
@@ -37,8 +42,9 @@ var $title;								//title is plane text
 	instance->title='My chart';
 var $fillColor;							//colors don't have # preceeding them
 	instance->fillcolor='76A4FB';
-var $showGrid;							//it tries to auto calc it
+var $showGrid;							//if 1 tries to auto calc grid. If > 1 then show this many grid lines
 	instance->showGrid=1;
+	instance->showGrid=30;
 }}}
 f googleChart($data=null,$type=null,$title=null,$dimensions=null);
 	-data is an array or a comma separated string. 
@@ -46,8 +52,9 @@ f googleChart($data=null,$type=null,$title=null,$dimensions=null);
 f setLabels(string or array,string); default 'left'
 	-sets labels on the chart, 2nd param is 'top' 'left' 'bottom' or 'right'
 	
-f draw(boolean); default (true)
+f draw(boolean,$append='&chxr.png'); default (true,'&chxr.png')
 	-prints an img tag with the chart, if set to false, returns the chart url.
+	-The value of $append is append to the chart url. By default it will append &chxr.png so the url is detected as an image
 	
 f smartDataLabel($data);
 	-Adds a legend and data based on array keys
@@ -144,6 +151,27 @@ CHART WITH LOTS OF OPTIONS, data sets are supplied in a string
 	$chart1->draw();
 }}}
 
+http://chart.apis.google.com/chart?chs=450x150&cht=lc&chtt=Expenses&chbh=10&chxt=y,x,x&chxl=0:|0|6155|12310|1:|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|2:|May&chg=3.33,50,1&chco=0088ff,8800ff,4444ff&chd=t:0,0,0.9,0,0,0,100,3.9,0,0,3.8,0,0,0,3.2,0,0,0,0,0,1.1,12.3,0,0,3.7,0,0,0,0,10.2,18.2&chxr=&chxr.png
+CHART USING NEGATIVE NUMBERS AND AUTO-GRID
+{{{
+	$month='May';
+	$daysInMonth=31;
+	$chartDates='';
+	for ($i=1;$i<=$daysInMonth;$i++) {
+		if ($chartDates) $chartDates.='|';
+		$chartDates.=$i;
+	}
+	$chartData='0,0,-109.9,0,0,0,-12310.58,-478.5,0,0,-473.38,0,0,0,-398,0,0,0,0,0,-134.6,-1513.1,0,0,-454.26,0,0,0,0,-1258.04,-2237.8';
+
+	$chart=new googleChart(null,'line','Expenses','700x250');
+	$chart->negativeMode=true; //values are negative
+	$chart->loadData($chartData);
+	$chart->barWidth=10; //makes bars thinner
+	$chart->setLabelsMinMax();
+	$chart->setLabels($chartDates,'bottom');
+	$chart->setLabels($month,'bottom');
+	$chart->showGrid=1;
+	$chart->draw();
 	
 TO ADD A LEGEND MANUALLY:
 {{{
